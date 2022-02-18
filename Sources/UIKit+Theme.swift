@@ -89,6 +89,18 @@ import UIKit
         get { return getThemePicker(self, "setBarTintColor:") as? ThemeColorPicker }
         set { setThemePicker(self, "setBarTintColor:", newValue) }
     }
+    var theme_barBackgroundImageForDefault: ThemeImagePicker? {
+        get {
+            return self.themePickers["setBackgroundImage:for:"] as? ThemeImagePicker
+        }
+        set {
+            guard let value = newValue?.value() else { return }
+            
+            let selector: String = "setBackgroundImage:for:"
+            self.themePickers[selector] = newValue
+            self.perform(Selector(selector), with: value, with: UIBarMetrics.default)
+        }
+    }
     var theme_titleTextAttributes: ThemeStringAttributesPicker? {
         get { return getThemePicker(self, "setTitleTextAttributes:") as? ThemeStringAttributesPicker }
         set { setThemePicker(self, "setTitleTextAttributes:", newValue) }
